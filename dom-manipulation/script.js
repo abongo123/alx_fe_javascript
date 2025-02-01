@@ -16,7 +16,7 @@ function showRandomQuote() {
     quoteDisplay.innerHTML = `<p>"${quote.text}" - <strong>${quote.category}</strong></p>`;
 }
 
-function createAddQuote() {
+function createAddQuoteForm() {
     const text = document.getElementById("newQuoteText").value.trim();
     const category = document.getElementById("newQuoteCategory").value.trim();
 
