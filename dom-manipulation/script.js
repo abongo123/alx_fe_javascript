@@ -213,6 +213,46 @@ function syncData(serverData) {
     saveToLocalStorage();
 }
 
+const actions = {
+    ["fetchQuotesFromServer"]: () => alert('Hello World'),
+    ["syncQuotes"]: () => {
+        console.log("Syncing quotes...");
+        fetchServerData(); // Fetch new quotes from the server
+    }
+};
+
+// Sync server data with local data
+function syncData(serverData) {
+    const syncedQuotes = [...localQuotes];
+
+    serverData.forEach(serverQuote => {
+        const existingIndex = localQuotes.findIndex(localQuote => localQuote.text === serverQuote.title);
+        
+        if (existingIndex === -1) {
+            // Add new quote from server
+            localQuotes.push({
+                text: serverQuote.title,
+                category: serverQuote.body, 
+            });
+            console.log(`New quote added: ${serverQuote.title}`);
+        } else {
+            // Conflict: server data will take precedence
+            localQuotes[existingIndex] = {
+                text: serverQuote.title,
+                category: serverQuote.body, 
+            };
+            console.log(`Quote updated from server: ${serverQuote.title}`);
+        }
+    });
+
+    saveToLocalStorage();
+    displaySyncNotification();  // Show notification after syncing data
+}
+
+// Call syncQuotes action whenever needed
+actions["syncQuotes"]();
+
+
 // Save updated quotes to local storage
 function saveToLocalStorage() {
     localStorage.setItem("quotes", JSON.stringify(localQuotes));
