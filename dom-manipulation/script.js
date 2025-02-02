@@ -158,6 +158,27 @@ setInterval(fetchServerData, 10000);
 // Simulate periodic fetching every 10 seconds
 setInterval(fetchServerData, 10000);  // Adjust the interval as needed
 
+const requestOptions = {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ message: "Hello, Server!" }) // Example body data
+};
+
+async function sendPostRequest() {
+    try {
+        const response = await fetch("https://jsonplaceholder.typicode.com/posts", requestOptions);
+        const data = await response.json();
+        console.log("Server Response:", data);
+    } catch (error) {
+        console.error("Error sending POST request:", error);
+    }
+}
+
+// Call the function to send a POST request
+sendPostRequest();
+
 let localQuotes = [
     { text: "When a leaf falls down, it doesn't mean that it has become useless but instead it has changed from manufacturing to being the nutrients", category: "Motivation" },
     { text: "Planning is the first step towards achieving", category: "Encouragement" },
