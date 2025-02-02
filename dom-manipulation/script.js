@@ -47,6 +47,20 @@ document.addEventListener("DOMContentLoaded", () => {
     filterQuotes(); // Display filtered quote based on selected category
 });
 
+// Function to export quotes to a JSON file
+document.getElementById('exportButton').addEventListener('click', function() {
+  const json = JSON.stringify(quotes, null, 2); // Convert quotes array to a formatted JSON string
+  const blob = new Blob([json], { type: 'application/json' }); // Create a Blob from the JSON data
+  const url = URL.createObjectURL(blob); // Create an object URL for the Blob
+  const a = document.createElement('a'); // Create a temporary anchor element
+  a.href = url; // Set the href to the object URL
+  a.download = 'quotes.json'; // Set the download filename
+  document.body.appendChild(a); // Append the anchor to the document
+  a.click(); // Trigger the download
+  document.body.removeChild(a); // Remove the anchor element
+  URL.revokeObjectURL(url); // Revoke the object URL to release resources
+});
+
 function importFromJsonFile(event) {
     const fileReader = new FileReader();
     fileReader.onload = function(event) {
