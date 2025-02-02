@@ -147,13 +147,13 @@ function fetchServerData() {
         .then(response => response.json())
         .then(data => {
             console.log('Data fetched from server:', data);
-            syncData(data); // Sync the fetched data with local storage
+            syncData(data);
+            actions["fetchQuotesFromServer"](); // Trigger the alert
         })
         .catch(error => {
             console.error('Error fetching data from server:', error);
         });
 }
-
 // Simulate periodic fetching every 10 seconds
 setInterval(fetchServerData, 10000);  // Adjust the interval as needed
 
