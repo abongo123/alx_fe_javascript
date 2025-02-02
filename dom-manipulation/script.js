@@ -247,6 +247,10 @@ function syncData(serverData) {
 
     saveToLocalStorage();
     displaySyncNotification();  // Show notification after syncing data
+
+    console.log("Quotes synced with server!");
+actions["quotesSyncedMessage"]();
+
 }
 
 // Call syncQuotes action whenever needed
