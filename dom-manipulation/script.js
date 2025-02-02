@@ -141,19 +141,20 @@ filterQuotes();
 
 const apiUrl = 'https://jsonplaceholder.typicode.com/posts';  // Mock API URL
 
-// Simulate periodic data fetching
-function fetchServerData() {
-    fetch(apiUrl)
-        .then(response => response.json())
-        .then(data => {
-            console.log('Data fetched from server:', data);
-            syncData(data);
-            actions["fetchQuotesFromServer"](); // Trigger the alert
-        })
-        .catch(error => {
-            console.error('Error fetching data from server:', error);
-        });
+async function fetchServerData() {
+    try {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+        console.log('Data fetched from server:', data);
+        syncData(data);
+        actions["fetchQuotesFromServer"](); // Trigger the alert
+    } catch (error) {
+        console.error('Error fetching data from server:', error);
+    }
 }
+
+// Simulate periodic fetching every 10 seconds
+setInterval(fetchServerData, 10000);
 // Simulate periodic fetching every 10 seconds
 setInterval(fetchServerData, 10000);  // Adjust the interval as needed
 
